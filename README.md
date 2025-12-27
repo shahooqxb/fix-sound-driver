@@ -1,84 +1,82 @@
-# Fix Sound Driver on Windows 11 (PowerShell / CMD)
+# 🔊 Windows 11 Sound Driver Fix Toolkit (PowerShell / CMD)
 
-COPY → PASTE → RUN AS ADMIN
+<p align="center">
+  <img src="https://img.shields.io/badge/OS-Windows%2011-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Shell-PowerShell%20%7C%20CMD-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Audio-Driver%20Fix-success?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge">
+</p>
+
+<p align="center">
+A developer-style toolkit to fix <b>missing, deleted, or broken sound drivers</b><br>
+on <b>Windows 11</b> using <b>native PowerShell and CMD commands only</b>.
+</p>
 
 ---
 
-METHOD 1: RESTART AUDIO SERVICES
+## 📌 Overview
 
-PowerShell (Admin)
+This repository fixes common Windows 11 audio problems caused by:
+- Windows Updates
+- Corrupted or deleted drivers
+- Audio services not running
+- Registry or system file corruption
 
-net stop audiosrv
-net stop AudioEndpointBuilder
+No third-party tools. No installers. No malware.
+
+---
+
+## ⚠️ Requirements
+
+- Windows 11
+- Administrator privileges
+- PowerShell (Run as Administrator)
+
+---
+
+## 🚀 ONE-CLICK FULL AUTO FIX (RECOMMENDED)
+
+> Runs **ALL METHODS (1–5)** automatically  
+> Restart services → scan hardware → reinstall drivers → repair system → reset registry
+
+### ▶ Copy & paste into **PowerShell (Admin)**
+
+```powershell
+# ==========================================
+# WINDOWS 11 AUDIO DRIVER FULL AUTO FIX
+# ==========================================
+
+Write-Host "Starting Windows Audio Repair..." -ForegroundColor Cyan
+
+# METHOD 1: Restart Audio Services
+Write-Host "Restarting Audio Services..."
+net stop audiosrv /y
+net stop AudioEndpointBuilder /y
 net start AudioEndpointBuilder
 net start audiosrv
 
-RESTART PC
-
----
-
-METHOD 2: SCAN AND RE-DETECT AUDIO HARDWARE
-
-CMD (Admin)
-
+# METHOD 2: Scan & Re-detect Audio Hardware
+Write-Host "Scanning for Audio Devices..."
 pnputil /scan-devices
 
-RESTART PC
+# METHOD 3: Reinstall Audio Drivers
+Write-Host "Reinstalling Audio Drivers..."
+Get-PnpDevice -Class Sound,VideoAndGameControllers -ErrorAction SilentlyContinue |
+Disable-PnpDevice -Confirm:$false
+Start-Sleep -Seconds 3
+Get-PnpDevice -Class Sound,VideoAndGameControllers -ErrorAction SilentlyContinue |
+Enable-PnpDevice -Confirm:$false
 
----
-
-METHOD 3: REINSTALL AUDIO DRIVER AUTOMATICALLY
-
-PowerShell (Admin)
-
-Get-PnpDevice -Class Sound,VideoAndGameControllers
-
-Get-PnpDevice -Class Sound,VideoAndGameControllers | Disable-PnpDevice -Confirm:$false
-Get-PnpDevice -Class Sound,VideoAndGameControllers | Enable-PnpDevice -Confirm:$false
-
-RESTART PC
-
----
-
-METHOD 4: REMOVE CORRUPT AUDIO DRIVER (ADVANCED)
-
-CMD (Admin)
-
-pnputil /enum-drivers | findstr /i audio
-
-pnputil /delete-driver oemXX.inf /uninstall /force
-
-(REPLACE oemXX.inf WITH REAL NAME)
-
-RESTART PC IMMEDIATELY
-
----
-
-METHOD 5: REPAIR WINDOWS AUDIO SYSTEM FILES
-
-PowerShell (Admin)
-
+# METHOD 4: Repair System Files
+Write-Host "Running System File Checker..."
 sfc /scannow
 
+Write-Host "Running DISM Image Repair..."
 DISM /Online /Cleanup-Image /RestoreHealth
 
-RESTART PC
-
----
-
-METHOD 6: RESET WINDOWS AUDIO REGISTRY
-
-PowerShell (Admin)
-
+# METHOD 5: Reset Windows Audio Registry
+Write-Host "Resetting Audio Registry..."
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio" /f
 
-RESTART PC IMMEDIATELY
+Write-Host "Audio Repair Completed. PLEASE RESTART YOUR PC." -ForegroundColor Green
 
----
-
-IF SOUND STILL DOES NOT WORK:
-- AUDIO DISABLED IN BIOS
-- HARDWARE DAMAGE
-- INSTALL OFFICIAL DRIVER FROM LAPTOP MANUFACTURER
-
-LICENSE: MIT
