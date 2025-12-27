@@ -48,6 +48,7 @@ No third-party tools. No installers. No malware.
 Write-Host "Starting Windows Audio Repair..." -ForegroundColor Cyan
 
 # METHOD 1: Restart Audio Services
+
 Write-Host "Restarting Audio Services..."
 net stop audiosrv /y
 net stop AudioEndpointBuilder /y
@@ -55,10 +56,12 @@ net start AudioEndpointBuilder
 net start audiosrv
 
 # METHOD 2: Scan & Re-detect Audio Hardware
+
 Write-Host "Scanning for Audio Devices..."
 pnputil /scan-devices
 
 # METHOD 3: Reinstall Audio Drivers
+
 Write-Host "Reinstalling Audio Drivers..."
 Get-PnpDevice -Class Sound,VideoAndGameControllers -ErrorAction SilentlyContinue |
 Disable-PnpDevice -Confirm:$false
@@ -67,6 +70,7 @@ Get-PnpDevice -Class Sound,VideoAndGameControllers -ErrorAction SilentlyContinue
 Enable-PnpDevice -Confirm:$false
 
 # METHOD 4: Repair System Files
+
 Write-Host "Running System File Checker..."
 sfc /scannow
 
@@ -74,6 +78,7 @@ Write-Host "Running DISM Image Repair..."
 DISM /Online /Cleanup-Image /RestoreHealth
 
 # METHOD 5: Reset Windows Audio Registry
+
 Write-Host "Resetting Audio Registry..."
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio" /f
 
