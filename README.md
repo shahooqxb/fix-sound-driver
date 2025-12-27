@@ -34,9 +34,9 @@ No third-party tools. No installers. No malware.
 
 ---
 
-## 🚀 ONE-CLICK FULL AUTO FIX (RECOMMENDED)
+## 🚀 FULL SOUND DRIVER FIX 
 
-> Runs **ALL METHODS (1–5)** automatically  
+> Runs **ALL METHODS (1–5)** one by one
 > Restart services → scan hardware → reinstall drivers → repair system → reset registry
 
 ### ▶ Copy & paste into **PowerShell (Admin)**
@@ -45,7 +45,7 @@ No third-party tools. No installers. No malware.
 # WINDOWS 11 AUDIO DRIVER FULL AUTO FIX
 # ==========================================
 
-Write-Host "Starting Windows Audio Repair..." -ForegroundColor Cyan
+Write-Host "Starting Windows Audio Repair" 
 
 # METHOD 1: Restart Audio Services
 
@@ -65,7 +65,7 @@ net start audiosrv
 
 # METHOD 2: Scan & Re-detect Audio Hardware
 
-Write-Host "Scanning for Audio Devices..."
+Write-Host "Scanning for Audio Devices"
 ```powershell
 pnputil /scan-devices
 ```
@@ -81,20 +81,20 @@ Enable-PnpDevice -Confirm:$false
 
 # METHOD 4: Repair System Files
 
-Write-Host "Running System File Checker..."
+Write-Host "Running System File Checker"
 ```powershell
 sfc /scannow
 ```
 
-Write-Host "Running DISM Image Repair..."
+Write-Host "Running DISM Image Repair"
 DISM /Online /Cleanup-Image /RestoreHealth
 
 # METHOD 5: Reset Windows Audio Registry
 
-Write-Host "Resetting Audio Registry..."
+Write-Host "Resetting Audio Registry"
 ```powershell
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio" /f
 ```
 
-Write-Host "Audio Repair Completed. PLEASE RESTART YOUR PC." -ForegroundColor Green
+PLEASE RESTART YOUR PC.
 
