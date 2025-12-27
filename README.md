@@ -41,7 +41,6 @@ No third-party tools. No installers. No malware.
 
 ### ▶ Copy & paste into **PowerShell (Admin)**
 
-```powershell
 # ==========================================
 # WINDOWS 11 AUDIO DRIVER FULL AUTO FIX
 # ==========================================
